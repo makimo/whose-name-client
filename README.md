@@ -6,6 +6,30 @@ It answers questions of the following form:
 
 > For one that calls themselves `test@example.org` on `jira`, what is their username on Slack? (Answer: `U123456`).
 
+# Installation
+
+To install the code globally, use:
+
+```
+sudo pip3 install .
+```
+
+To add this to pip `requirements.txt` file, use:
+
+```
+-e git+ssh://git@github.com:makimo/whose-name-client.git#egg=whosename-main
+```
+
+To add this to `setup.py`, try [this answer](https://stackoverflow.com/questions/32688688/how-to-write-setup-py-to-include-a-git-repository-as-a-dependency):
+
+```python
+install_requires = [
+  'whosename @ git+ssh://git@github.com/makimo/whose-name-client@v1.1#egg=whosename-main',
+]
+```
+
+
+
 # Console usage
 
 There are two commands that can be used in shell: `whosename` and `whosename-login`. When used on your own machine, you can simply issue the following command:
