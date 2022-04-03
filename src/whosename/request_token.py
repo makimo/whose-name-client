@@ -15,22 +15,26 @@ Options:
 
 VERSION = '1.0'
 
-from getpass import getpass
-from docopt import docopt
 
 from typing import Optional
+
+from pathlib import Path
 
 import getpass
 import platform
 
-
+from docopt import docopt
 import requests
 
 from .defs import DOMAIN
 
 
 def save_token(filename, token):
-    with open(filename, 'w') as f:
+    path = Path(filename).expanduser()
+
+    path.parent.mkdir(parents=True, exist_ok=True)
+
+    with open(path, 'w') as f:
         f.write(token)
 
 
@@ -172,7 +176,8 @@ def main():
         ['whose-name']
     )
 
-    save_token(
-        arguments['-o'] or '.whosename.token',
-        token
-    )
+    filename = arguments['-o'] or '~/.whosename/token'
+
+    save_token(filename, token)
+
+    print("Token saved to {}".format(filename))

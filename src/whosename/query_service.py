@@ -19,10 +19,11 @@ from typing import Optional
 
 import requests
 
-import os
+import subprocess
+
+import os, sys
 
 from .defs import DOMAIN
-from .request_token import interactively_request_token
 
 def find_file_upwards(name, path=None, fail_silently=False):
         """Find file in the path directory or in directories above."""
@@ -67,14 +68,9 @@ def discover_token(interactive: bool = False) -> str:
     if not interactive:
         raise ValueError("Token not set")
     
-    """token = interactively_request_token(
-        abilities=['whose-name']
-    )
+    subprocess.check_call(['whosename-login'])
 
-    if not token:
-        raise ValueError("Token not set")
-    
-    return token"""
+    return discover_token(interactive=False)
 
 
 def name_of(
@@ -120,7 +116,7 @@ def main():
         arguments['SERVICE'],
         arguments['ASKED_SERVICE'],
         arguments['--token'],
-        not arguments['-n']
+        sys.stdout.isatty() and not arguments['-n']
     )
 
     print(name)
