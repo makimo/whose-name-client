@@ -79,7 +79,7 @@ def name_of(
         askedService: str, 
         authToken: Optional[str] = None,
         interactive: bool = False
-    ) -> str:
+    ) -> Optional[str]:
 
     if not authToken:
         authToken = discover_token(interactive)
